@@ -1,18 +1,22 @@
 package com.example.springboot.model.Player;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 
 import com.fasterxml.jackson.annotation.JsonTypeId;
 
 import java.time.LocalDate;
 @Entity
+@Table
 public class Player {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @SequenceGenerator(
+            name="player_sequence",
+            sequenceName = "player_sequence",
+    allocationSize = 1
+    )
+    @GeneratedValue(strategy=GenerationType.SEQUENCE,
+        generator="player_sequence")
     private Long id;
     String name;
     String Position;
@@ -26,8 +30,8 @@ public class Player {
 
     public Player(){}
 
-    public Player(Long id, String name, String position, LocalDate dob, int age, String email, String team, String nationality, int weight, LocalDate debut) {
-        this.id = id;
+    public Player(String name, String position, LocalDate dob, int age, String email, String team, String nationality, int weight, LocalDate debut) {
+
         this.name = name;
         Position = position;
         this.dob = dob;
@@ -75,10 +79,6 @@ public class Player {
         return debut;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -118,7 +118,6 @@ public class Player {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Player{");
-        sb.append("id=").append(id);
         sb.append(", name='").append(name).append('\'');
         sb.append(", Position='").append(Position).append('\'');
         sb.append(", dob=").append(dob);
