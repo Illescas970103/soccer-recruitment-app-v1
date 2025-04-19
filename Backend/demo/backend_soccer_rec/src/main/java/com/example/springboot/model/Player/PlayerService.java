@@ -1,18 +1,16 @@
-package com.example.springboot.controller;
-import com.example.springboot.model.Player.Player;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+package com.example.springboot.model.Player;
+
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
 
-@RestController
-@RequestMapping("/api") //organizar rutas desde el backend REST
-public class HelloController {
-    @GetMapping("/hello")
-    public List<Player> sayHello(){
+@Service
+public class PlayerService {
+
+    public List<Player> getPlayers(){
         return List.of(
                 new Player(
                         1L,
@@ -26,11 +24,10 @@ public class HelloController {
                         75,
                         LocalDate.of(2012,Month.APRIL,3)
 
-
-
-
-
                 )
         );
+
     }
+
+
 }
